@@ -13,17 +13,13 @@ public class Main {
             while (true) {
                 try (Socket clientSocket = serverSocket.accept();
                      BufferedReader in = new BufferedReader(new InputStreamReader((clientSocket.getInputStream())));
-                     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
                 ) {
-                    System.out.printf("Новое соединение установлено порт %d\n", clientSocket.getPort());
-                    out.write("Привет от Сервера!\n");
-                    out.flush();
+                    System.out.printf("Новое соединение установлено порт %d%n", clientSocket.getPort());
+                    out.print("Привет от Сервера!\n");
                     String name = in.readLine();
                     System.out.println(name);
-                    out.write("23456");
-                    out.flush();
-//                    out.write(String.format("Привет %s, ваш порт %d\n", name, clientSocket.getPort()));
-//                    out.printf("Привет %s, ваш порт %d\n", name, clientSocket.getPort());
+                    out.printf("Привет %s, ваш порт %d\n", name, clientSocket.getPort());
                 }
             }
         } catch (IOException e) {

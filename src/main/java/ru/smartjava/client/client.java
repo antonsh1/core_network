@@ -9,21 +9,16 @@ public class client {
         int port = 8090;
         try(Socket clientSocket = new Socket(host,port);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
         )
         {
-            out.write("Вася!");
-            out.flush();
+            out.println("Вася!");
             String resp;
-            do{
+            do {
                 resp = in.readLine();
                 System.out.println(resp);
-            } while (resp != null);
+            }while(resp != null);
 
-//            String resp = in.readLine();
-//            System.out.println(resp);
-//            resp = in.readLine();
-//            System.out.println(resp);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
